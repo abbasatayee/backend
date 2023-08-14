@@ -15,7 +15,7 @@ class RoleMiddleware
     }
     // Check if any of the user's roles match the allowed roles
     $userRoles = auth()->user()->role;
-    if (in_array($userRoles,$roles)) {
+    if (count(array_intersect($userRoles,$roles))) {
         return $next($request);
     }
     
