@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Employee;
+use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -17,5 +21,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         User::factory(10)->create();
+        Employee::factory(10)->create();
+        Product::factory(10)->create();
+        Store::factory(10)->create();
     }
 }

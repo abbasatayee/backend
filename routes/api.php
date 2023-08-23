@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::middleware('auth:sanctum','role:admin,user')->get('/user', [AuthControlle
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/check', [AuthController::class, 'myApiMethod']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+Route::apiResource('/employees', EmployeeController::class);
