@@ -22,15 +22,8 @@ return new class extends Migration
             $table->string('phone');
             $table->enum('gender', ['male', 'female']);
             $table->integer('salary');
-            $table->unsignedBigInteger('store_id')->nullable()->default(null);
-            $table->foreign('store_id')->references('id')->on('stores')->onDelete('set null');
+            $table->foreignId('store_id')->nullable()->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-        });
-        Schema::create('employee_product', function (Blueprint $table) {
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

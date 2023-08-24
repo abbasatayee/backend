@@ -20,13 +20,11 @@ return new class extends Migration
             $table->string('p_code');
             $table->enum('type',['expirable','un_expirable']);
             $table->date('expiration_date')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreignId('category_id')->nullable()->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('unit');
             $table->string('description')->nullable();
             $table->integer('number_of_sales')->nullable();
             $table->boolean('is_published')->default(false);
-            $table->unsignedBigInteger('added_by')->nullable();
-            $table->foreign('added_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

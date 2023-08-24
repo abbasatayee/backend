@@ -32,7 +32,6 @@ class ProductFactory extends Factory
             'description' => $this->faker->optional()->sentence,
             'number_of_sales' => $this->faker->optional()->randomNumber(2),
             'is_published' => $this->faker->boolean(75),
-            'added_by' => 1,
         ];
     }
 }
