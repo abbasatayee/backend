@@ -15,7 +15,7 @@ return [
     |
     */
     'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout'],
-    'allowed_origins' => ['http://localhost:3000'], // Update with your React app URL
+    'allowed_origins' => ['http://localhost:3000'], 
     'allowed_methods' => ['*'],
     'allowed_headers' => ['*'],
 ];

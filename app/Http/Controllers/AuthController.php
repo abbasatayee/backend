@@ -1,12 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Add this line
 
 class AuthController extends Controller
 {
+    // public function getLoginCredentials()
+    // {
+    //     $user = User::get();
+    //     if ($user) {
+    //     return [
+    //         'email' => $user->email,
+    //         'password' => $user->password,
+    //     ];
+    // }
+    // return [
+    //     'email' => '',
+    //     'password' => '',
+    // ];
+    // }
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -15,7 +30,7 @@ class AuthController extends Controller
             $user = Auth::user();
             $token = $user->createToken('api-token')->plainTextToken;
 
-            return response()->json(['token' => $token,'user'=>$user], 200);
+            return response()->json(['token' => $token, 'user' => $user], 200);
         }
 
         return response()->json(['message' => 'Invalid credentials'], 401);
@@ -34,6 +49,6 @@ class AuthController extends Controller
         $user = User::get();
         return $user;
         // return response()->json($request->user(), 200);
-        
+
     }
 }
