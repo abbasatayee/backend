@@ -8,20 +8,6 @@ use Illuminate\Support\Facades\Auth; // Add this line
 
 class AuthController extends Controller
 {
-    // public function getLoginCredentials()
-    // {
-    //     $user = User::get();
-    //     if ($user) {
-    //     return [
-    //         'email' => $user->email,
-    //         'password' => $user->password,
-    //     ];
-    // }
-    // return [
-    //     'email' => '',
-    //     'password' => '',
-    // ];
-    // }
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
