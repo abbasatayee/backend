@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:sanctum','role:admin,user')->get('/user', [AuthController::class, 'getUser']);
+Route::middleware('auth:sanctum','role:admin,user')->get('/app/user', [AuthController::class, 'getUser']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/check', [AuthController::class, 'myApiMethod']);
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+Route::get('/auth/authenticated-user-data', [AuthController::class, 'authenticatedUserData'])->middleware('auth:api');
+Route::middleware('auth:sanctum')->post('/auth/logout', [AuthController::class, 'logout']);
 Route::apiResource('/employees', EmployeeController::class);
