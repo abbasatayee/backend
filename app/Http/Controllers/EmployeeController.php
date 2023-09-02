@@ -12,10 +12,12 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employee = Employee::get();
-        return $employee;
+        $page = $request->query('page',1);
+        $perPage = $request->query('per_page',10);
+        $employee = Employee::OrderBy('id','desc')->paginate($perPage,['*'],'page',$page);
+        return response()->json($employee);
     }
 
     /**
