@@ -32,10 +32,11 @@ class AuthController extends Controller
 
     public function getUser(Request $request)
     {
-        $user = User::get();
-        return $user;
-        // return response()->json($request->user(), 200);
+        $page = $request->query('page', 1);
+        $perPage = $request->query('per_page', 10);
+        $users = User::orderBy('id', 'desc')->paginate($perPage, ['*'], 'page', $page);
 
+        return response()->json($users);
     }
     public function authenticatedUserData()
     {
