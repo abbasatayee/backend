@@ -28,7 +28,47 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $request->validate([
+        'name'=>'required|string',
+        'lastname'=>'required|string',
+        'photo'=>'required|mimes:jpeg,png,gif|max:2048',
+        'position'=>'required|string',
+        'phone'=>'required|string',
+        'gender'=>'required|string',
+        'salary'=>'required|string'
+       ]);
+       if ($request->hasFile('photo')) {
+        $file = $request->file('photo');
+        $fileName = $file->getClientOriginalName();
+        $fileName = str_replace(' ', '', $fileName);
+        $file->move(public_path('EmployeeImage/avatars'), $fileName);
+        $imageValue = 'EmployeeImage/avatars/' . $fileName;
+        $create = Employee::create([
+            'name'=>$request->name,
+            'lastname'=>$request->lastname,
+            'position'=>$request->position,
+            'phone'=>$request->phone,
+            'gender'=>$request->gender,
+            'salary'=>$request->salary,
+            'photo'=>$imageValue
+        ]);
+        $responseData = [
+            'name'=>$create->name,
+            'lastname'=>$create->lastname,
+            'position'=>$create->position,
+            'phone'=>$create->phone,
+            'gender'=>$create->gender,
+            'salary'=>$create->salary,
+            'photo'=>$create->photo,
+            'updated_at' => $create->updated_at,
+                    'created_at' => $create->created_at,
+                    'id' => $create->id,
+        ];
+        return response()->json($responseData, 201);
+    
+    } else {
+        return response()->json(['message' => 'file not uploaded'], 503);
+    }
     }
 
     /**
