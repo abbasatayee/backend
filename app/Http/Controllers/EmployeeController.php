@@ -100,8 +100,25 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy(){}
+    
+    public function multilpledelete()
     {
-        //
+        $ids = request('ids');
+        $idsArray = explode(',', $ids);
+        if (is_array($idsArray) && count($idsArray) > 0) {
+            $employeesToDelete = Employee::whereIn('id', $idsArray)->get();
+            foreach ($employeesToDelete as $employee) {
+                if (!empty($employee->photo)) {
+                    \File::delete($employee->photo);
+                }
+            }
+            Employee::whereIn('id', $idsArray)->delete();
+    
+            return response()->json(['message' => 'Users deleted successfully']);
+        } else {
+            return response()->json(['message' => 'No valid IDs provided for deletion'], 400);
+        }
     }
+    
 }

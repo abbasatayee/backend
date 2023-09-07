@@ -21,3 +21,4 @@ Route::get('/check', [AuthController::class, 'myApiMethod']);
 Route::get('/auth/authenticated-user-data', [AuthController::class, 'authenticatedUserData'])->middleware('auth:api');
 Route::middleware('auth:sanctum')->post('/auth/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum','role:admin,user')->apiResource('app/employees', EmployeeController::class);
+Route::middleware('auth:sanctum','role:admin,user')->delete('app/delete', [EmployeeController::class,'multilpledelete']);
